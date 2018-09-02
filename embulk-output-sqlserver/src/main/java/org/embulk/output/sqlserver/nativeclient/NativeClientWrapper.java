@@ -206,11 +206,16 @@ public class NativeClientWrapper
                 odbcHandle,
                 pointer,
                 0,
-                size,
+                size > 7999 ? 7999 : size,
                 null,
                 0,
                 NativeClient.SQLCHARACTER,
                 columnIndex));
+
+//        if (rv != NativeClient.SUCCEED) {
+//            System.out.println("size=" + size );
+//        }
+        checkBCPResult("bcp_collen", client.bcp_collen(odbcHandle, size, columnIndex));
         return (int)pointer.size();
     }
 
